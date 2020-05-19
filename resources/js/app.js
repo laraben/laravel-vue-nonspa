@@ -26,6 +26,7 @@ Vue.mixin(Permissions);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('profile-component', require('./components/ProfileComponent.vue').default);
+Vue.component('users-component', require('./components/UsersComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

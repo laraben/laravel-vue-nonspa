@@ -13,6 +13,7 @@ This is a boilerplate to create a non spa application/website.
 - Permissions (spatie)
 - Laravel Debugbar
 - PurgeCss (spatie)
+- ADMIN LAYOUT : Admin LTE
 
 ## Description
 
