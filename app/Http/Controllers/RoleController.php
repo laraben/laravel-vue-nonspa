@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
@@ -20,6 +21,7 @@ class RoleController extends Controller
 
         return view('pages.Roles.index', compact('roles', 'permissions'));
     }
+
 
     public function store(Request $request)
     {
@@ -49,5 +51,24 @@ class RoleController extends Controller
         }
 
         return redirect()->route('roles.index');
+    }
+
+    public function getRoles()
+    {
+        return response(Role::all()->jsonSerialize(), Response::HTTP_OK);
+    }
+
+    public function updateName(Request $request)
+    {
+        $role = Role::find($request->id);
+        $role->name = $request->value;
+        $role->save();
+    }
+
+    public function destroy(Request $request)
+    {
+        //dd($request);
+        $role = Role::find($request->id);
+        $role->delete();
     }
 }

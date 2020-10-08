@@ -8,17 +8,15 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th>Role Name</th>
+                                <th style="width:15%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="user in users" :key="user.id" >
-                                <td>{{ user.id }}</td>
-                                <td><app-click-to-edit v-model="user.name" @input="updateName($event, user.id )"></app-click-to-edit></td>
-                                <td><app-click-to-edit v-model="user.email" @input="updateEmail($event, user.id )"></app-click-to-edit></td>
-                                <td>{{ user.roles[0].name }}</td>
+                            <tr v-for="(role, index) in roles" :key="role.id" >
+                                <td>{{ index + 1 }}</td>
+                                <td><app-click-to-edit v-model="role.name" @input="updateRoleName($event, role.id )"></app-click-to-edit></td>
+                                <td><button class="btn btn-sm btn-danger" @click="deleteItem(index,role.id)">Delete</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -33,37 +31,38 @@
 
         data() {
             return {
-                users: [],
+                roles: [],
                 postData: {
                     id: '',
-                    row: '',
                     value: ''
-                }
+                },
+                showModal: false,
             }
         },
         methods: {
-            updateName: function(event, id){
+            updateRoleName: function(event, id){
                 this.postData.id = id;
                 this.postData.value = event;
 
-                axios.post('/api/user/update/name', this.postData)
+                axios.post('/api/role/update/name', this.postData)
                 .then(response => '')
                 .catch(error => console.log(error))
             },
-            updateEmail: function(event, id){
+            deleteItem: function(index,id){
                 this.postData.id = id;
-                this.postData.value = event;
+                this.postData.value = null;
 
-                axios.post('/api/user/update/email', this.postData)
-                .then(response => '')
+                axios.post('/api/role/destroy', this.postData)
+                .then(response => this.$delete(this.roles, index))
                 .catch(error => console.log(error))
+
             }
 
         },
         mounted() {
-            axios.get('/api/getusers')
+            axios.get('/api/getroles')
                  .then(response => {
-                    this.users =  response.data;
+                    this.roles =  response.data;
                }).catch(function (error) {
                     console.log(error);
                 });

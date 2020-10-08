@@ -83,6 +83,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel">
     <div class="modal-dialog" role="document">
         {!! Form::open(['method' => 'post']) !!}

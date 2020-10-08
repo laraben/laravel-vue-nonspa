@@ -22,5 +22,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/user/update/name', 'UsersController@updateName');
     Route::post('/user/update/email', 'UsersController@updateEmail');
 
+    Route::get('/getroles', 'RoleController@getRoles');
+    Route::post('/role/update/name', 'RoleController@updateName');
+    Route::post('/role/destroy', 'RoleController@destroy');
+
 
 });

@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => true]);
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -27,6 +27,7 @@ Route::get('/admin', function () {
     }
     return redirect('/login');
 })->name('admin');
+
 Route::group(['prefix' => 'admin','middleware' => ['auth:web']], function () {
     Route::resource('users', 'UsersController');
     Route::resource('roles', 'RoleController');
